@@ -1,146 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BUHO – Wearable Art</title>
-    <style>
-        body {
-            font-family: 'Garamond', serif;
-            background-color: #f5f1e3;
-            color: #3a3a3a;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-            transition: background 0.5s ease-in-out;
-        }
-        header {
-            background: url('https://source.unsplash.com/1600x900/?renaissance-art') no-repeat center;
-            background-size: cover;
-            color: white;
-            padding: 50px 20px;
-            font-size: 32px;
-            font-weight: bold;
-            position: relative;
-            opacity: 0;
-            animation: fadeIn 1.5s ease-in forwards;
-        }
-        .logo {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            width: 100px;
-        }
-        .nav {
-            margin-top: 20px;
-            opacity: 0;
-            animation: slideDown 1.5s ease-in forwards 0.5s;
-        }
-        .nav a {
-            margin: 0 15px;
-            text-decoration: none;
-            font-size: 18px;
-            color: #3a3a3a;
-            font-weight: bold;
-            cursor: pointer;
-            transition: color 0.3s;
-        }
-        .nav a:hover {
-            color: #8b6f47;
-        }
-        .container {
-            max-width: 900px;
-            margin: auto;
-            padding: 20px;
-            animation: fadeIn 2s ease-in;
-            display: none;
-        }
-        .active {
-            display: block;
-        }
-        h1 {
-            font-size: 42px;
-            font-weight: bold;
-            animation: slideIn 1.5s ease-in-out;
-        }
-        .button {
-            background: #8b6f47;
-            color: white;
-            padding: 10px 20px;
-            text-decoration: none;
-            font-size: 18px;
-            border-radius: 5px;
-            display: inline-block;
-            margin-top: 20px;
-            transition: background 0.3s, transform 0.3s;
-        }
-        .button:hover {
-            background: #715838;
-            transform: scale(1.05);
-        }
-        footer {
-            margin-top: 50px;
-            padding: 20px;
-            background: #3a3a3a;
-            color: white;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        @keyframes slideIn {
-            from { transform: translateY(-20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-        @keyframes slideDown {
-            from { transform: translateY(-30px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-    </style>
-    <script>
-        function showSection(sectionId) {
-            document.querySelectorAll('.container').forEach(section => {
-                section.classList.remove('active');
-            });
-            document.getElementById(sectionId).classList.add('active');
-        }
-        window.onload = function() {
-            showSection('home');
-        }
-    </script>
-</head>
-<body>
-    <header>
-        <img src="Wordpress Transparent.png" alt="BUHO Logo" class="logo">
-        BUHO – Wearable Art, Timeless Expression
-        <div class="nav">
-            <a onclick="showSection('home')">Home</a>
-            <a onclick="showSection('shop')">Shop</a>
-            <a onclick="showSection('lookbook')">Lookbook</a>
-            <a onclick="showSection('contact')">Contact</a>
+import { useState } from "react";
+import { motion } from "framer-motion";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+
+export default function Home() {
+  const [customOrder, setCustomOrder] = useState("");
+
+  return (
+    <div className="min-h-screen bg-[#F5F0E1] text-[#3B2F2F] p-4 font-serif">
+      {/* Header */}
+      <header className="text-center py-10">
+        <h1 className="text-5xl font-bold tracking-wide">Buho Wear - Human Gallery</h1>
+        <p className="text-lg mt-2">Edição limitada de peças bordadas à máquina</p>
+      </header>
+
+      {/* Catálogo */}
+      <section className="grid grid-cols-1 md:grid-cols-3 gap-6 my-10">
+        {["Hoodie Renaissance", "T-shirt Angels", "Hoodie Monalisa"].map((item, index) => (
+          <motion.div
+            key={index}
+            whileHover={{ scale: 1.05 }}
+            className="rounded-2xl overflow-hidden shadow-lg"
+          >
+            <Card>
+              <CardContent className="p-4">
+                <h2 className="text-2xl font-semibold">{item}</h2>
+                <p className="mt-2">Bordado exclusivo - Edição limitada</p>
+                <Button className="mt-4 w-full">Comprar</Button>
+              </CardContent>
+            </Card>
+          </motion.div>
+        ))}
+      </section>
+
+      {/* Personalização */}
+      <section className="mt-16 p-6 border-t border-gray-400">
+        <h2 className="text-3xl text-center">Personalize sua peça</h2>
+        <p className="text-center mt-2">Envie seu pedido exclusivo para uma peça customizada.</p>
+        <div className="flex flex-col items-center mt-6">
+          <Input
+            className="w-1/2 p-2 border border-gray-400 rounded-md"
+            placeholder="Descreva sua ideia..."
+            value={customOrder}
+            onChange={(e) => setCustomOrder(e.target.value)}
+          />
+          <Button className="mt-4">Enviar Pedido</Button>
         </div>
-    </header>
-    <div class="container active" id="home">
-        <h1>Welcome to BUHO</h1>
-        <p>Where Renaissance meets modern expression.</p>
-        <img src="https://source.unsplash.com/800x600/?renaissance-painting" alt="Renaissance Art">
+      </section>
     </div>
-    <div class="container" id="shop">
-        <h1>Shop the Collection</h1>
-        <p>Explore our exclusive pieces that blend Renaissance art with modern streetwear.</p>
-        <img src="https://source.unsplash.com/800x600/?fashion-art" alt="Fashion Art">
-    </div>
-    <div class="container" id="lookbook">
-        <h1>Lookbook</h1>
-        <p>A visual journey through the BUHO aesthetic.</p>
-        <img src="https://source.unsplash.com/800x600/?gallery-exhibition" alt="Gallery Exhibition">
-    </div>
-    <div class="container" id="contact">
-        <h1>Contact Us</h1>
-        <p>Have questions? Reach out to us at <a href="mailto:contact@buho.com">contact@buho.com</a></p>
-    </div>
-    <footer>
-        &copy; 2025 BUHO | Designed for visionaries
-    </footer>
-</body>
-</html>
+  );
+}
