@@ -12,6 +12,7 @@
             text-align: center;
             margin: 0;
             padding: 0;
+            transition: background 0.5s ease-in-out;
         }
         header {
             background: url('https://source.unsplash.com/1600x900/?renaissance-art') no-repeat center;
@@ -21,6 +22,8 @@
             font-size: 32px;
             font-weight: bold;
             position: relative;
+            opacity: 0;
+            animation: fadeIn 1.5s ease-in forwards;
         }
         .logo {
             position: absolute;
@@ -30,6 +33,8 @@
         }
         .nav {
             margin-top: 20px;
+            opacity: 0;
+            animation: slideDown 1.5s ease-in forwards 0.5s;
         }
         .nav a {
             margin: 0 15px;
@@ -38,9 +43,10 @@
             color: #3a3a3a;
             font-weight: bold;
             cursor: pointer;
+            transition: color 0.3s;
         }
         .nav a:hover {
-            text-decoration: underline;
+            color: #8b6f47;
         }
         .container {
             max-width: 900px;
@@ -66,10 +72,11 @@
             border-radius: 5px;
             display: inline-block;
             margin-top: 20px;
-            transition: background 0.3s;
+            transition: background 0.3s, transform 0.3s;
         }
         .button:hover {
             background: #715838;
+            transform: scale(1.05);
         }
         footer {
             margin-top: 50px;
@@ -83,6 +90,10 @@
         }
         @keyframes slideIn {
             from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes slideDown {
+            from { transform: translateY(-30px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
     </style>
